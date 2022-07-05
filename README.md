@@ -1,6 +1,6 @@
 # 쇼핑몰 웹 서비스 프로젝트
 
-http://kdt-sw2-seoul-team16.elicecoding.com/
+https://eladin.herokuapp.com/
 
 관리자 기능 확인시
 
