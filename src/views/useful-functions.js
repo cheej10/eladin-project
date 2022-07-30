@@ -39,7 +39,7 @@ export const validateNull = (arr) => {
 };
 
 export const validateNumber = (value) => {
-  if (!value.replace(/[^-0-9]/g, '')) {
+  if (!/^[0-9]+$/.test(value)) {
     return false;
   }
   return true;

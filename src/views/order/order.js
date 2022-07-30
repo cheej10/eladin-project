@@ -22,6 +22,40 @@ orderCount.innerText = `${count}개`;
 priceText.innerText = `${booksPrice}원`;
 totalPriceText.innerText = `${booksPrice + 3000}원`;
 
+// 우편번호 찾기 버튼 클릭 시
+const searchPostalCodeBtn = document.querySelector('#searchPostalCodeBtn');
+searchPostalCodeBtn.addEventListener('click', searchPostalCode);
+
+const address1 = document.querySelector('#receiverAddress1');
+const postalCode = document.querySelector('#receiverPostalCode');
+
+function searchPostalCode() {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let extraRoadAddr = ''; // 동, 건물 추가할 변수
+
+      // 법정동명이 있을 경우 추가
+      if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+        extraRoadAddr += data.bname;
+      }
+
+      // 건물명이 있을 경우 추가
+      if (data.buildingName !== '' && data.apartment === 'Y') {
+        extraRoadAddr +=
+          extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+      }
+
+      // extraRoadAddr 문자열에 괄호 추가
+      if (extraRoadAddr !== '') {
+        extraRoadAddr = ' (' + extraRoadAddr + ')';
+      }
+
+      postalCode.value = data.zonecode;
+      address1.value = data.roadAddress + extraRoadAddr;
+    },
+  }).open();
+}
+
 // 구매하기 버튼 클릭 시
 const purchaseButton = document.querySelector('#purchaseButton');
 purchaseButton.addEventListener('click', purchase);
@@ -31,16 +65,13 @@ async function purchase() {
   const receiverPhoneNumber = document.querySelector(
     '#receiverPhoneNumber'
   ).value;
-  const receiverAddress1 = document.querySelector('#receiverAddress1').value;
   const receiverAddress2 = document.querySelector('#receiverAddress2').value;
-  const receiverPostalCode = document.querySelector(
-    '#receiverPostalCode'
-  ).value;
+  const receiverPostalCode = postalCode.value;
 
   const arr = [
     receiverName,
     receiverPhoneNumber,
-    receiverAddress1,
+    address1.value,
     receiverAddress2,
     receiverPostalCode,
   ];
@@ -64,7 +95,7 @@ async function purchase() {
   }
 
   if (validationCheck(arr)) {
-    try{
+    try {
       const user = await Api.get('/api/user');
       const orderList = [];
 
@@ -84,7 +115,7 @@ async function purchase() {
         email: user.email,
         fullName: receiverName,
         phoneNumber: receiverPhoneNumber,
-        address1: receiverAddress1,
+        address1: address1.value,
         address2: receiverAddress2,
         postalCode: receiverPostalCode,
       };
@@ -93,7 +124,7 @@ async function purchase() {
 
       location.href = '/orderComplete';
     } catch (err) {
-      alert(err.message)
+      alert(err.message);
     }
   }
 }
