@@ -119,7 +119,7 @@ async function purchase() {
         address2: receiverAddress2,
         postalCode: receiverPostalCode,
       };
-      console.log(info);
+
       await Api.post('/order/register', info);
 
       location.href = '/orderComplete';

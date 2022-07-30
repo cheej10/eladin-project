@@ -4,7 +4,6 @@ const receivedId = location.href.split('?')[1];
 async function allFunc() {
   const bookContainer = document.querySelector('.book-container');
   const book = await Api.get(`/product/${receivedId}`);
-  console.log(book);
 
   const { bookName, author, publisher, price, info, imageUrl } = book;
 
@@ -28,8 +27,6 @@ async function allFunc() {
 }
 
 async function deleteProduct() {
-  console.log(receivedId);
-
   await fetch(`/product/deleteProduct/${receivedId}`, {
     method: 'DELETE',
     headers: {

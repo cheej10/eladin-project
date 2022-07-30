@@ -115,7 +115,7 @@ userRouter.patch('/update', loginRequired, async function (req, res, next) {
     const password = req.body.password;
     const address = req.body.address;
     const phoneNumber = req.body.phoneNumber;
-    
+
     // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
     const currentPassword = req.body.currentPassword;
 
@@ -155,7 +155,6 @@ userRouter.delete('/del', loginRequired, async function (req, res, next) {
     const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
     const jwtDecoded = jwt.verify(userToken, secretKey);
     const userId = jwtDecoded.userId;
-    console.log(userId);
     // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
     const currentPassword = req.body.data;
     // currentPassword 없을 시, 진행 불가

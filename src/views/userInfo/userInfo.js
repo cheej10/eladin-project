@@ -46,7 +46,6 @@ async function submitUserInfo(e) {
 
   if (validationCheck(arr)) {
     try {
-      console.log(fullName);
       const data = {
         fullName,
         password,
@@ -56,7 +55,7 @@ async function submitUserInfo(e) {
       };
       alert('수정이 완료됐습니다.');
       await Api.patch('/api/update', '', data);
-      location.href = '/accountManagement'
+      location.href = '/accountManagement';
     } catch (e) {
       console.error(err.stack);
       alert(

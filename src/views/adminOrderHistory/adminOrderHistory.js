@@ -25,7 +25,6 @@ async function drawAdminOrderHistory(pageNo) {
     let orderedProduct = ``;
     let totalQuantity = 0;
     let totalPrice = 0;
-    
 
     order.orderList.forEach((order) => {
       const { bookName, quantity, price } = order;
@@ -68,7 +67,7 @@ async function drawAdminOrderHistory(pageNo) {
   });
 
   totalPageNum = totalPage;
-  totalButtonPageNum = Math.floor((totalPageNum-1) / 5);
+  totalButtonPageNum = Math.floor((totalPageNum - 1) / 5);
 
   if (currentButtonPageNum === totalButtonPageNum) {
     paginationBtn.forEach((btn) => {
@@ -78,9 +77,6 @@ async function drawAdminOrderHistory(pageNo) {
     });
   }
 }
-
-// const paginationList = document.querySelector('.pagination-list');
-// const pagiationPrevious = document.getElementById('pagination-previous')
 
 async function pagination(e) {
   const pageNumber = e.target.innerText;
@@ -103,23 +99,19 @@ async function currentButton(num) {
   paginationBtn.forEach((btn, i) => (btn.innerHTML = buttonPageNum[i]));
 }
 
-//previous.addEventListener('click', minusPage);
-
 async function plusPage() {
   if (currentButtonPageNum < totalButtonPageNum) {
     currentButtonPageNum += 1;
 
     paginationBtn.forEach((btn, i) => {
-      console.log(typeof i);
       if (i === 0) {
-        console.log('working');
         btn.classList.add('is-current');
       } else {
         btn.classList.remove('is-current');
       }
     });
     currentButton(currentButtonPageNum);
-    currentPage = currentButtonPageNum * 5 + 1
+    currentPage = currentButtonPageNum * 5 + 1;
     drawAdminOrderHistory(currentPage);
   }
 }
@@ -130,7 +122,6 @@ async function minusPage() {
 
     paginationBtn.forEach((btn, i) => {
       if (i === 0) {
-        console.log('working');
         btn.classList.add('is-current');
       } else {
         btn.classList.remove('is-current');
@@ -139,8 +130,7 @@ async function minusPage() {
     });
 
     currentButton(currentButtonPageNum);
-    currentPage = currentButtonPageNum * 5 + 1
+    currentPage = currentButtonPageNum * 5 + 1;
     drawAdminOrderHistory(currentPage);
   }
-  
 }

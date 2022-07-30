@@ -5,17 +5,16 @@ const continueButton = document.querySelector('#continueButton');
 
 continueButton.addEventListener('click', deleteUser);
 
-async function deleteUser(e)  {
-    e.preventDefault();
+async function deleteUser(e) {
+  e.preventDefault();
 
-    try {
-        console.log(passwordInput.value);
-        const data = passwordInput.value;
-        await Api.delete('/api/del','',{data});
-        alert('탈퇴가 완료됐습니다.');
-        localStorage.removeItem('token');
-        location.href = '/';
-    } catch (err) {
-        alert(err);
-    }
+  try {
+    const data = passwordInput.value;
+    await Api.delete('/api/del', '', { data });
+    alert('탈퇴가 완료됐습니다.');
+    localStorage.removeItem('token');
+    location.href = '/';
+  } catch (err) {
+    alert(err);
+  }
 }

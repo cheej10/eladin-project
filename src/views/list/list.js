@@ -148,7 +148,6 @@ nextPageBtn.addEventListener('click', () => {
 
 // pagination 버튼 5개씩 생성
 function createPaginationBtn(totalPage, currentPage) {
-  console.log(totalPage);
   const pageCount = 5;
   paginationList.innerHTML = '';
 

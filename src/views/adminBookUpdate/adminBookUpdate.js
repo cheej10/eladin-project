@@ -1,5 +1,4 @@
 import * as Api from '../api.js';
-// import { createDB, writeDB } from '../indexedDB.js';
 const receivedId = location.href.split('?')[1];
 
 const bookNameInput = document.querySelector('#bookName');
@@ -25,7 +24,6 @@ async function sell(e) {
   e.preventDefault();
 
   //upload router
-  console.log('fetch start');
   const bookName = bookNameInput.value;
   const author = authorInput.value;
   const category = categoryInput.value;
@@ -34,18 +32,15 @@ async function sell(e) {
   const price = Number(priceInput.value);
   const img = new FormData();
   img.append('img', photo.files[0]);
-  console.log(photo.files[0]);
   try {
     const urlResult = await fetch('/upload/register/', {
       method: 'POST',
       body: img,
     });
-    console.log(urlResult);
-    const imageJson = await urlResult.json();
 
+    const imageJson = await urlResult.json();
     const imageUrl = imageJson.url;
 
-    console.log(price);
     const data = {
       bookName,
       author,
@@ -55,6 +50,7 @@ async function sell(e) {
       info,
       imageUrl,
     };
+
     const result = await Api.postparam('/product/setProduct', receivedId, data);
     alert(`제품이 수정됐습니다.`);
     location.href = `/adminBookDetail?${receivedId}`;
